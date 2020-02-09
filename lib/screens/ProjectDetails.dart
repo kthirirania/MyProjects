@@ -1,6 +1,8 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_projects/Widgets/LoadImage.dart';
 import 'package:my_projects/models/Member.dart';
 import 'package:my_projects/models/Project.dart';
 
@@ -20,6 +22,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Color(0xffe6eef7),
+        statusBarIconBrightness: Brightness.dark
+    ));
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -28,7 +34,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 16.0, bottom: 8, left: 6, right: 10),
+                    top: 16.0, bottom: 8, left: 16, right: 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,38 +48,13 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         height: 20,
                       ),
                     ),
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12.0),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: Center(
-                        child: Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: new AssetImage(
-                                  'assets/avatars/054-woman-13.png'),
-                              fit: BoxFit.contain,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                        ),
-                      ),
-                    ),
+                    LoadImage("https://drive.google.com/uc?export=view&id=1bcQaCdWNUsXF2he704ZfUrofxw6KV9KH", 52, 52, 4, 12, false),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    right: 8.0, left: 8, top: 8, bottom: 8),
+                    right: 20.0, left: 20, top: 8, bottom: 8),
                 child: Container(
                   decoration: new BoxDecoration(
                     color: Colors.white,
@@ -90,27 +71,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         title: Text(UtilsFunctions.capitalizeSentence(
                                 widget.project.title.trim())
                             .trim()),
-                        leading: Container(
-                          width: 52,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Center(
-                            child: Container(
-                              width: 48,
-                              height: 48,
-                              child: Image.network(
-                                widget.project.image,
-                                fit: BoxFit.contain,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ),
+                        leading: LoadImage(widget.project.image, 52, 52, 4, 12, false),
                         subtitle: Text(
                           "Deadline " +
                               UtilsFunctions.convertDateFromString(
@@ -268,7 +229,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    right: 8.0, left: 8, top: 16, bottom: 8),
+                    right: 20.0, left: 20, top: 16, bottom: 8),
                 child: Container(
                   decoration: new BoxDecoration(
                     color: Colors.white,
@@ -313,30 +274,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                                       flex: 4,
                                       child: Align(
                                         alignment: Alignment.centerLeft,
-                                        child: Container(
-                                          width: 80,
-                                          height: 80,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[100],
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          child: Center(
-                                            child: Container(
-                                              width: 48,
-                                              height: 48,
-                                              child: Image.network(
-                                                widget
-                                                    .project.files[index].image,
-                                                fit: BoxFit.contain,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        child: LoadImage(widget.project.files[index].image, 80, 80, 42, 12, false),
                                       ),
                                     ),
                                     Flexible(

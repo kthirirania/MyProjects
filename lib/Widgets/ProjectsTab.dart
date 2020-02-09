@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_projects/Widgets/LoadImage.dart';
 import 'package:my_projects/models/Data.dart';
 import 'package:my_projects/models/Member.dart';
 import 'package:my_projects/models/Project.dart';
@@ -54,29 +55,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
                                       Data.createLists()[index].title
                                       .trim())
                                       .trim()),
-                              leading: Container(
-                                width: 52,
-                                height: 52,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[100],
-                                  borderRadius:
-                                  BorderRadius.circular(12.0),
-                                ),
-                                child: Center(
-                                  child: Container(
-                                    width: 48,
-                                    height: 48,
-                                    child: Image.network(
-                                      Data.createLists()[index].image,
-                                      fit: BoxFit.contain,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(12.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              leading: LoadImage(Data.createLists()[index].image, 52, 52, 4, 12, false),
                               subtitle: Text(
                                 UtilsFunctions.convertDateFromString(
                                     Data.createLists()[index].deadline,
