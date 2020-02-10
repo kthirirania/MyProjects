@@ -6,6 +6,7 @@ import 'package:my_projects/Widgets/TabsWidget.dart';
 import 'package:my_projects/screens/FavoritesScreen.dart';
 import 'package:my_projects/screens/HomeScreen.dart';
 import 'package:my_projects/screens/ProfileScreen.dart';
+import 'package:my_projects/screens/ProjectDetails.dart';
 import 'package:my_projects/screens/SettingsScreen.dart';
 import 'package:my_projects/screens/TestScreen.dart';
 

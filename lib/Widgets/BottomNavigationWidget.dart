@@ -26,10 +26,14 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       /*
-      appBar: AppBar(
-        title: Text(title),
-      ),*/
-
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(0),
+            child: AppBar(
+              elevation: 0,
+              backgroundColor: Color(0xffe6eef7),
+              brightness: Brightness.dark,
+            )
+        ),*/
       backgroundColor: Color(0xffe6eef7),
       body: Align(
         alignment: Alignment.center,

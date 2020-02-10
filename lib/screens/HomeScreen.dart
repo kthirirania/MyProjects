@@ -22,15 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark
-    ));
+        statusBarIconBrightness: Brightness.dark));
+  }
+  @override
+  Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 3,
       initialIndex: 0,

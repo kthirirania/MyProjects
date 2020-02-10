@@ -16,12 +16,13 @@ class LoadImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: (width + padding),
       height: (height + padding),
       decoration: BoxDecoration(
         color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Center(
         child: CachedNetworkImage(
@@ -43,7 +44,7 @@ class LoadImage extends StatelessWidget {
               height: height,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(borderRadius),
+                borderRadius: BorderRadius.circular(imageBorderRadius),
               ),
             ),
           ),
@@ -55,53 +56,12 @@ class LoadImage extends StatelessWidget {
               height: height,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(borderRadius),
+                borderRadius: BorderRadius.circular(imageBorderRadius),
               ),
             ),
           ),
         ),
       ),
     );
-
-/*
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: CachedNetworkImage(
-          fit: BoxFit.cover,
-          imageUrl: widget.imageUrl,
-          errorWidget: (context, url, error) => Shimmer.fromColors(
-                baseColor: Colors.grey[200],
-                highlightColor: Colors.grey[100],
-                child: Container(
-                   width: widget.width,
-                    height: widget.height,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(widget.borderRadius),
-                  ),
-                ),
-              ),
-          placeholder: (_, url) => Shimmer.fromColors(
-                baseColor: Colors.grey[200],
-                highlightColor: Colors.grey[100],
-                child: Container(
-                   width: widget.width,
-                    height: widget.height,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(widget.borderRadius),
-                  ),
-                ),
-              ),
-        ),
-      ),
-    );*/
   }
 }
