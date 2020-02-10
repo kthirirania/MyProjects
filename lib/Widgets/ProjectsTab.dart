@@ -55,7 +55,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
                                       Data.createLists()[index].title
                                       .trim())
                                       .trim()),
-                              leading: LoadImage(Data.createLists()[index].image, 52, 52, 4, 12, false),
+                              leading: LoadImage(Data.createLists()[index].image, 60, 60, 4, 12, 0, false),
                               subtitle: Text(
                                 UtilsFunctions.convertDateFromString(
                                     Data.createLists()[index].deadline,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_projects/Widgets/BottomNavigationWidget.dart';
 import 'package:my_projects/Widgets/HomeScreenTabsBody.dart';
 import 'package:my_projects/Widgets/TabsWidget.dart';
@@ -11,8 +12,12 @@ import 'package:my_projects/screens/TestScreen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Color(0xffe6eef7),
+        statusBarIconBrightness: Brightness.dark));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Raleway'),

@@ -24,8 +24,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Color(0xffe6eef7),
-        statusBarIconBrightness: Brightness.dark
-    ));
+        statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -48,7 +47,14 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         height: 20,
                       ),
                     ),
-                    LoadImage("https://drive.google.com/uc?export=view&id=1bcQaCdWNUsXF2he704ZfUrofxw6KV9KH", 52, 52, 4, 12, false),
+                    LoadImage(
+                        "https://drive.google.com/uc?export=view&id=1bcQaCdWNUsXF2he704ZfUrofxw6KV9KH",
+                        52,
+                        52,
+                        0,
+                        12,
+                        12,
+                        false),
                   ],
                 ),
               ),
@@ -71,7 +77,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         title: Text(UtilsFunctions.capitalizeSentence(
                                 widget.project.title.trim())
                             .trim()),
-                        leading: LoadImage(widget.project.image, 52, 52, 4, 12, false),
+                        leading: LoadImage(
+                            widget.project.image, 52, 52, 4, 12, 0, false),
                         subtitle: Text(
                           "Deadline " +
                               UtilsFunctions.convertDateFromString(
@@ -202,7 +209,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                                   },
                                   child: Container(
                                     /** TODO
-                                     * Make the height bigger
+                                     * Make the height higher
                                      */
                                     child: descTextShowFlag
                                         ? SvgPicture.asset(
@@ -240,7 +247,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(
@@ -254,146 +261,106 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 4),
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            itemCount: widget.project.files.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 12.0),
-                                child: Row(
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: widget.project.files.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: ListTile(
+                                leading: LoadImage(
+                                    widget.project.files[index].image,
+                                    44,
+                                    44,
+                                    12,
+                                    12,
+                                    0,
+                                    false),
+                                title:  Text(
+                                  widget.project.files[index].name,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
-                                    Flexible(
-                                      flex: 4,
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: LoadImage(widget.project.files[index].image, 80, 80, 42, 12, false),
-                                      ),
+                                    Text(
+                                      widget
+                                          .project.files[index].lastTimeUpdated,
+                                      style: TextStyle(fontSize: 12),
                                     ),
-                                    Flexible(
-                                      flex: 9,
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: <Widget>[
-                                            Text(widget
-                                                .project.files[index].name),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
-                                            Text(widget.project.files[index]
-                                                .lastTimeUpdated),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                Text('By'),
-                                                SizedBox(
-                                                  height: 20,
-                                                  child: Padding(
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Text(
+                                          'By',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 4.0),
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: widget
+                                                    .project
+                                                    .files[index]
+                                                    .members
+                                                    .length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index1) {
+                                                  return Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            left: 4.0),
-                                                    child: ListView.builder(
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount: widget
-                                                            .project
-                                                            .files[index]
-                                                            .members
-                                                            .length,
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                    context,
-                                                                int index1) {
-                                                          return Align(
-                                                            alignment: Alignment
-                                                                .topLeft,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          1.0),
-                                                              child: Container(
-                                                                width: 20,
-                                                                height: 20,
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20.0),
-                                                                  child: Image
-                                                                      .network(
-                                                                    widget
-                                                                        .project
-                                                                        .files[
-                                                                            index]
-                                                                        .members[
-                                                                            index1]
-                                                                        .image,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                                            right: 1.0),
+                                                    child: Container(
+                                                      width: 20,
+                                                      height: 20,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                        child: Image.network(
+                                                          widget
+                                                              .project
+                                                              .files[index]
+                                                              .members[index1]
+                                                              .image,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 2,
-                                      child: Align(
-                                        alignment: Alignment.topRight,
-                                        child: Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/more.svg',
-                                                color: Color(0xff8799ad),
-                                                width: 16,
-                                                height: 16,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 44,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                      ],
+                                    )
                                   ],
                                 ),
-                              );
-                            }),
-                      ),
+                                trailing: SvgPicture.asset(
+                                  'assets/icons/more.svg',
+                                  color: Color(0xff8799ad),
+                                  width: 16,
+                                  height: 16,
+                                ),
+                                isThreeLine: true,
+                              ),
+                            );
+                          }),
                     ],
                   ),
                 ),
