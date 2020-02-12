@@ -13,14 +13,19 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
 
   int currentIndex = 0;
   String title = HomeScreen().title;
   Widget containerToSow = HomeScreen();
+
+  @override
+  void initState() {
+
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,25 +62,21 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     switch (index) {
       case 0:
         setState(() {
-          this.title = HomeScreen().title;
           this.containerToSow = HomeScreen();
         });
         break;
       case 1:
         setState(() {
-          this.title = SettingsScreen().title;
           this.containerToSow = SettingsScreen();
         });
         break;
       case 2:
         setState(() {
-          this.title = FavoritesScreen().title;
           this.containerToSow = FavoritesScreen();
         });
         break;
       case 3:
         setState(() {
-          this.title = ProfileScreen().title;
           this.containerToSow = ProfileScreen();
         });
         break;

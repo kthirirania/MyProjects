@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
         '/favorites': (context) => FavoritesScreen(),
         '/TabsWidget': (context) => TabsWidget(),
         '/HomeScreensTabsBody': (context) => HomeScreensTabsBody(),
+        ProjectDetails.route: (context) =>
+            ProjectDetails(ModalRoute.of(context).settings.arguments),
         '/TestScreen': (context) => TestScreen(),
       },
     );

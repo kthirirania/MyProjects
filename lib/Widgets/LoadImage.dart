@@ -40,11 +40,11 @@ class LoadImage extends StatelessWidget {
             baseColor: Colors.grey[200],
             highlightColor: Colors.grey[100],
             child: Container(
-              width: width,
-              height: height,
+              width: (width + padding),
+              height: (height + padding),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(imageBorderRadius),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
             ),
           ),
@@ -52,11 +52,11 @@ class LoadImage extends StatelessWidget {
             baseColor: Colors.grey[200],
             highlightColor: Colors.grey[100],
             child: Container(
-              width: width,
-              height: height,
+              width: (width + padding),
+              height: (height + padding),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(imageBorderRadius),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
             ),
           ),

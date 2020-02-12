@@ -9,9 +9,11 @@ import 'package:my_projects/models/Project.dart';
 import '../UtilsFunctions.dart';
 
 class ProjectDetails extends StatefulWidget {
-  Project project = new Project("", "", "", 0, "", "", [], []);
+  static const String route = '/projectDetails';
 
-  ProjectDetails(this.project);
+  final ScreenArguments arguments;
+
+  ProjectDetails(this.arguments);
 
   @override
   _ProjectDetailsState createState() => _ProjectDetailsState();
@@ -19,9 +21,23 @@ class ProjectDetails extends StatefulWidget {
 
 class _ProjectDetailsState extends State<ProjectDetails> {
   bool descTextShowFlag = false;
+
+
+  @override
+  void initState() {
+
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Color(0xffe6eef7),
+        statusBarIconBrightness: Brightness.dark));
+  }
+
   @override
   Widget build(BuildContext context) {
 
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Color(0xffe6eef7),
+        statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       /*
@@ -106,14 +122,17 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                 children: <Widget>[
                   ListTile(
                     title: Text(UtilsFunctions.capitalizeSentence(
-                            widget.project.title.trim())
+                            widget.arguments.project.title.trim())
                         .trim()),
-                    leading: LoadImage(
-                        widget.project.image, 52, 52, 4, 12, 0, false),
+                    leading: Hero(
+                      tag: 'projectImage' + widget.arguments.index.toString(),
+                      child: LoadImage(
+                          widget.arguments.project.image, 52, 52, 4, 12, 0, false),
+                    ),
                     subtitle: Text(
                       "Deadline " +
                           UtilsFunctions.convertDateFromString(
-                              widget.project.deadline, "MMM dd, yyyy"),
+                              widget.arguments.project.deadline, "MMM dd, yyyy"),
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                       ),
@@ -136,7 +155,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                           height: 4.0,
                           decoration: new BoxDecoration(
                             color: UtilsFunctions.getColorFromHex(
-                                    widget.project.color)
+                                    widget.arguments.project.color)
                                 .withOpacity(0.3),
                             borderRadius: new BorderRadius.all(
                               Radius.circular(20),
@@ -147,10 +166,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                           child: Container(
                             height: 4.0,
                             width: MediaQuery.of(context).size.width *
-                                widget.project.progress,
+                                widget.arguments.project.progress,
                             decoration: new BoxDecoration(
                               color: UtilsFunctions.getColorFromHex(
-                                  widget.project.color),
+                                  widget.arguments.project.color),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
@@ -178,13 +197,13 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: widget.project.members.length,
+                          itemCount: widget.arguments.project.members.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Align(
                               alignment: Alignment.topLeft,
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 4.0),
-                                child: LoadImage(widget.project.members[index].image, 40,40,0,0,8,false),
+                                child: LoadImage(widget.arguments.project.members[index].image, 40,40,0,8,8,false),
                               ),
                             );
                           }),
@@ -213,7 +232,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         Flexible(
                           flex: 9,
                           child: Text(
-                            widget.project.about,
+                            widget.arguments.project.about,
                             maxLines: descTextShowFlag ? 8 : 3,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
@@ -286,13 +305,13 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: widget.project.files.length,
+                      itemCount: widget.arguments.project.files.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: ListTile(
                             leading: LoadImage(
-                                widget.project.files[index].image,
+                                widget.arguments.project.files[index].image,
                                 44,
                                 44,
                                 12,
@@ -300,7 +319,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                                 0,
                                 false),
                             title:  Text(
-                              widget.project.files[index].name,
+                              widget.arguments.project.files[index].name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14),
@@ -312,8 +331,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
                                 Text(
-                                  widget
-                                      .project.files[index].lastTimeUpdated,
+                                  widget.arguments.project.files[index].lastTimeUpdated,
                                   style: TextStyle(fontSize: 12),
                                 ),
                                 Row(
@@ -337,6 +355,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                                             scrollDirection:
                                                 Axis.horizontal,
                                             itemCount: widget
+                                            .arguments
                                                 .project
                                                 .files[index]
                                                 .members
@@ -350,10 +369,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                                                         right: 1.0),
                                                 child:
                                                 LoadImage( widget
+                                                .arguments
                                                     .project
                                                     .files[index]
                                                     .members[index1]
-                                                    .image, 20,20,0,0,20,false),
+                                                    .image, 20,20,0,20,20,false),
                                                 /*Container(
                                                   width: 20,
                                                   height: 20,
@@ -396,4 +416,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       ),
     );
   }
+}
+
+class ScreenArguments {
+  final Project project;
+  final int index;
+
+  ScreenArguments(this.project, this.index);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_projects/Widgets/LoadImage.dart';
 import 'package:my_projects/models/Data.dart';
 import 'package:my_projects/models/Member.dart';
@@ -18,7 +19,19 @@ class ProjectsTab extends StatefulWidget {
 class _ProjectsTabState extends State<ProjectsTab> {
 
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark));
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -33,10 +46,11 @@ class _ProjectsTabState extends State<ProjectsTab> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProjectDetails(Data.createLists()[index])),
-                      );
+                      Navigator.pushNamed(context, '/projectDetails',
+                          arguments: ScreenArguments(
+                              Data.createLists()[index],
+                            index
+                          ));
                     },
                     child: Container(
                       decoration: new BoxDecoration(
@@ -55,7 +69,11 @@ class _ProjectsTabState extends State<ProjectsTab> {
                                       Data.createLists()[index].title
                                       .trim())
                                       .trim()),
-                              leading: LoadImage(Data.createLists()[index].image, 60, 60, 4, 12, 0, false),
+                              leading: Hero(
+                                tag: 'projectImage' + index.toString(),
+                                transitionOnUserGestures: true,
+                                  child: LoadImage(Data.createLists()[index].image, 52, 52, 10, 12, 12, false),
+                              ),
                               subtitle: Text(
                                 UtilsFunctions.convertDateFromString(
                                     Data.createLists()[index].deadline,
